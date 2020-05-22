@@ -1,13 +1,17 @@
 import * as React from "react";
 import { View, Text } from "react-native";
 import { globalStyles } from "../styles/global";
+import { StackScreenProps } from "@react-navigation/stack";
+import { StackParamList } from "../App";
 
-export interface ReviewDetailsProps {}
+type Props = StackScreenProps<StackParamList, "ReviewDetails">;
 
-const ReviewDetails: React.SFC<ReviewDetailsProps> = () => {
+const ReviewDetails = ({ route, navigation }: Props) => {
   return (
     <View style={globalStyles.container}>
-      <Text>ReviewDetails screen</Text>
+      <Text>{JSON.stringify(route.params.title)}</Text>
+      <Text>{JSON.stringify(route.params.body)}</Text>
+      <Text>{JSON.stringify(route.params.rating)}</Text>
     </View>
   );
 };
