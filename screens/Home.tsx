@@ -4,9 +4,9 @@ import { View, Text } from "react-native";
 import { globalStyles } from "../styles/global";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
-import { StackParamList } from "../App";
+import { HomeStackParamList } from "../routes/HomeStack";
 
-type Props = StackScreenProps<StackParamList, "Home">;
+type Props = StackScreenProps<HomeStackParamList, "Home">;
 
 const Home = ({ navigation }: Props) => {
   const [reviews, setReviews] = useState([
