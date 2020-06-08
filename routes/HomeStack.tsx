@@ -2,6 +2,7 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Home";
 import ReviewDetails from "../screens/ReviewDetails";
+import Header from "../components/Header";
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -10,7 +11,7 @@ export type HomeStackParamList = {
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
-const HomeStack = () => (
+const HomeStack = ({ navigation }) => (
   <Stack.Navigator
     initialRouteName="Home"
     screenOptions={{
@@ -22,7 +23,9 @@ const HomeStack = () => (
     <Stack.Screen
       name="Home"
       component={Home}
-      options={{ title: "GameZone" }}
+      options={{
+        headerTitle: () => <Header navigation={navigation} title="GameZone" />
+      }}
     />
     <Stack.Screen
       name="ReviewDetails"
