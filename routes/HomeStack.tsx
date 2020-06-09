@@ -3,15 +3,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Home";
 import ReviewDetails from "../screens/ReviewDetails";
 import Header from "../components/Header";
+import { DrawerScreenProps } from "@react-navigation/drawer";
 
 export type HomeStackParamList = {
   Home: undefined;
   ReviewDetails: { title: string; rating: number; body: string; key: string };
 };
 
+type Props = DrawerScreenProps<HomeStackParamList>;
+
 const Stack = createStackNavigator<HomeStackParamList>();
 
-const HomeStack = ({ navigation }) => (
+const HomeStack = ({ navigation }: Props) => (
   <Stack.Navigator
     initialRouteName="Home"
     screenOptions={{
