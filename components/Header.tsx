@@ -1,9 +1,10 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 type Props = {
-  navigation: any;
+  navigation: DrawerNavigationProp<any, any>;
   title: String;
 };
 
