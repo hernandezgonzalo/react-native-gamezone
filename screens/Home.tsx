@@ -5,6 +5,7 @@ import { globalStyles } from "../styles/global";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
+import Card from "../components/Card";
 
 type Props = StackScreenProps<HomeStackParamList, "Home">;
 
@@ -23,7 +24,9 @@ const Home = ({ navigation }: Props) => {
           <TouchableOpacity
             onPress={() => navigation.navigate("ReviewDetails", item)}
           >
-            <Text style={globalStyles.titleText}>{item.title}</Text>
+            <Card>
+              <Text style={globalStyles.titleText}>{item.title}</Text>
+            </Card>
           </TouchableOpacity>
         )}
       />

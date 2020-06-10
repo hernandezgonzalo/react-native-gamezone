@@ -16,10 +16,10 @@ export default function Header({ navigation, title }: Props) {
   return (
     <View style={styles.header}>
       <MaterialIcons
+        style={styles.icon}
         name="menu"
         size={28}
         onPress={openMenu}
-        style={styles.icon}
       />
       <View>
         <Text style={styles.headerText}>{title}</Text>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    left: 16,
+    left: 0,
     color: "#fff"
   }
 });
