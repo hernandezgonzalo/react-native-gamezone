@@ -1,6 +1,6 @@
 import * as React from "react";
-import { View, Text } from "react-native";
-import { globalStyles } from "../styles/global";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { globalStyles, images } from "../styles/global";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
@@ -8,15 +8,31 @@ import Card from "../components/Card";
 type Props = StackScreenProps<HomeStackParamList, "ReviewDetails">;
 
 const ReviewDetails = ({ route, navigation }: Props) => {
+  const rating = route.params.rating;
+
   return (
     <View style={globalStyles.container}>
       <Card>
         <Text>{JSON.stringify(route.params.title)}</Text>
         <Text>{JSON.stringify(route.params.body)}</Text>
-        <Text>{JSON.stringify(route.params.rating)}</Text>
+        <View style={styles.rating}>
+          <Text>GameZone rating:</Text>
+          <Image source={images.ratings[rating]} />
+        </View>
       </Card>
     </View>
   );
 };
 
 export default ReviewDetails;
+
+const styles = StyleSheet.create({
+  rating: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingTop: 16,
+    marginTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: "#eee"
+  }
+});

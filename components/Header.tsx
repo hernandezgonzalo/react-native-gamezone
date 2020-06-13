@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 
@@ -30,7 +30,7 @@ export default function Header({ navigation, title }: Props) {
 
 const styles = StyleSheet.create({
   header: {
-    width: "100%",
+    width: Dimensions.get("screen").width,
     height: "100%",
     flexDirection: "row",
     alignItems: "center",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    left: 0,
+    left: 16,
     color: "#fff"
   }
 });
