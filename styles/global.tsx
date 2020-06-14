@@ -16,7 +16,9 @@ export const globalStyles = StyleSheet.create({
   }
 });
 
-export const images = {
+type imagesType = { ratings: { [index: string]: any } };
+
+export const images: imagesType = {
   ratings: {
     "1": require("../assets/rating-1.png"),
     "2": require("../assets/rating-2.png"),
