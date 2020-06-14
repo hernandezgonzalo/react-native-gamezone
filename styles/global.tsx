@@ -13,6 +13,20 @@ export const globalStyles = StyleSheet.create({
   paragraph: {
     marginVertical: 8,
     lineHeight: 20
+  },
+  modalToggle: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center"
+  },
+  modalClose: {
+    marginTop: 20,
+    marginBottom: 0
   }
 });
 
