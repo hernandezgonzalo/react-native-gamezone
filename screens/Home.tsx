@@ -6,15 +6,27 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
-import { dummyData } from "../dummyData.js";
+import { dummyData } from "../dummyData";
+import AddGame from "../components/AddGame";
+import { MaterialIcons } from "@expo/vector-icons";
 
 type Props = StackScreenProps<HomeStackParamList, "Home">;
 
 const Home = ({ navigation }: Props) => {
   const [reviews, setReviews] = useState(dummyData);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <View style={globalStyles.container}>
+      <AddGame {...{ modalOpen, setModalOpen }} />
+
+      <MaterialIcons
+        name="add"
+        size={24}
+        style={globalStyles.modalToggle}
+        onPress={() => setModalOpen(true)}
+      />
+
       <FlatList
         data={reviews}
         renderItem={({ item }) => (
