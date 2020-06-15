@@ -7,7 +7,7 @@ import { DrawerScreenProps } from "@react-navigation/drawer";
 
 export type HomeStackParamList = {
   Home: undefined;
-  ReviewDetails: { title: string; rating: number; body: string; key: string };
+  ReviewDetails: { title: string; rating: number; review: string; key: string };
 };
 
 type Props = DrawerScreenProps<HomeStackParamList>;

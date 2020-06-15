@@ -6,7 +6,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
-import { dummyData } from "../dummyData";
+import { dummyData, dummyDataType } from "../dummyData";
 import ModalWindow from "../components/ModalWindow";
 import { MaterialIcons } from "@expo/vector-icons";
 import ReviewForm from "./ReviewForm";
@@ -17,10 +17,16 @@ const Home = ({ navigation }: Props) => {
   const [reviews, setReviews] = useState(dummyData);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const addReview = (newReview: dummyDataType) => {
+    newReview.key = Math.random().toString();
+    setReviews(state => [newReview, ...state]);
+    setModalOpen(false);
+  };
+
   return (
     <View style={globalStyles.container}>
       <ModalWindow {...{ modalOpen, setModalOpen }}>
-        <ReviewForm />
+        <ReviewForm addReview={addReview} />
       </ModalWindow>
 
       <MaterialIcons

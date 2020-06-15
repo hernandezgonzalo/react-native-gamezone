@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { Text, View, TextInput, Button, Alert, StyleSheet } from "react-native";
+import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useForm } from "react-hook-form";
 import { globalStyles } from "../styles/global";
 import * as yup from "yup";
 
-export interface ReviewFormProps {}
+export interface ReviewFormProps {
+  addReview: any;
+}
 
 type FormData = {
   title: string;
@@ -14,18 +16,31 @@ type FormData = {
 
 const schema = yup.object().shape({
   title: yup.string().defined(),
-  review: yup.string(),
+  review: yup.string().defined(),
   rating: yup.number().defined().integer().min(1).max(5)
 });
 
-const ReviewForm: React.SFC<ReviewFormProps> = () => {
-  const { register, setValue, handleSubmit, errors } = useForm<FormData>({
+const defaultValues = {
+  title: "",
+  review: "",
+  rating: 1
+};
+
+const ReviewForm: React.SFC<ReviewFormProps> = ({ addReview }) => {
+  const { register, setValue, handleSubmit, errors, reset, watch } = useForm<
+    FormData
+  >({
     validationSchema: schema,
-    mode: "onBlur"
+    mode: "onBlur",
+    defaultValues
   });
 
-  const onSubmit = (data: object) =>
-    Alert.alert("Form Data", JSON.stringify(data));
+  const values = watch();
+
+  const onSubmit = (data: object) => {
+    addReview(data);
+    reset(defaultValues);
+  };
 
   useEffect(() => {
     register({ name: "title" });
@@ -38,6 +53,7 @@ const ReviewForm: React.SFC<ReviewFormProps> = () => {
       <TextInput
         placeholder="Title"
         onChangeText={text => setValue("title", text, true)}
+        value={values.title}
         style={globalStyles.input}
       />
       {errors.title && <Text>This is required</Text>}
@@ -45,18 +61,21 @@ const ReviewForm: React.SFC<ReviewFormProps> = () => {
       <TextInput
         placeholder="Review"
         onChangeText={text => setValue("review", text)}
+        value={values.review}
         style={globalStyles.input}
       />
+      {errors.title && <Text>This is required</Text>}
 
       <TextInput
         placeholder="Rating (1-5)"
         onChangeText={text => setValue("rating", Number(text))}
+        value={values.rating.toString()}
         style={globalStyles.input}
         keyboardType="numeric"
       />
       {errors.rating && <Text>This is required and has to be a number</Text>}
 
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button color="orange" title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };
