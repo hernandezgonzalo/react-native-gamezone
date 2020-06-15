@@ -13,8 +13,8 @@ const ReviewDetails = ({ route, navigation }: Props) => {
   return (
     <View style={globalStyles.container}>
       <Card>
-        <Text>{JSON.stringify(route.params.title)}</Text>
-        <Text>{JSON.stringify(route.params.body)}</Text>
+        <Text>{route.params.title}</Text>
+        <Text>{route.params.review}</Text>
         <View style={styles.rating}>
           <Text>GameZone rating:</Text>
           <Image source={images.ratings[rating]} />
