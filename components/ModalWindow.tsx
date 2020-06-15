@@ -1,14 +1,18 @@
 import * as React from "react";
-import { Modal, View, Text, StyleSheet } from "react-native";
+import { Modal, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/global";
 
-export interface AddGameProps {
+export interface ModalWindowProps {
   modalOpen: boolean;
   setModalOpen: any;
 }
 
-const AddGame: React.SFC<AddGameProps> = ({ modalOpen, setModalOpen }) => {
+const ModalWindow: React.SFC<ModalWindowProps> = ({
+  modalOpen,
+  setModalOpen,
+  children
+}) => {
   return (
     <Modal visible={modalOpen} animationType="slide">
       <View style={globalStyles.container}>
@@ -18,16 +22,10 @@ const AddGame: React.SFC<AddGameProps> = ({ modalOpen, setModalOpen }) => {
           style={{ ...globalStyles.modalToggle, ...globalStyles.modalClose }}
           onPress={() => setModalOpen(false)}
         />
-        <Text>Hola!!!</Text>
+        {children}
       </View>
     </Modal>
   );
 };
 
-export default AddGame;
-
-const styles = StyleSheet.create({
-  modalContent: {
-    paddingTop: 40
-  }
-});
+export default ModalWindow;

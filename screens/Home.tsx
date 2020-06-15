@@ -7,8 +7,9 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
 import { dummyData } from "../dummyData";
-import AddGame from "../components/AddGame";
+import ModalWindow from "../components/ModalWindow";
 import { MaterialIcons } from "@expo/vector-icons";
+import ReviewForm from "./ReviewForm";
 
 type Props = StackScreenProps<HomeStackParamList, "Home">;
 
@@ -18,7 +19,9 @@ const Home = ({ navigation }: Props) => {
 
   return (
     <View style={globalStyles.container}>
-      <AddGame {...{ modalOpen, setModalOpen }} />
+      <ModalWindow {...{ modalOpen, setModalOpen }}>
+        <ReviewForm />
+      </ModalWindow>
 
       <MaterialIcons
         name="add"
