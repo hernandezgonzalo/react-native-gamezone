@@ -11,26 +11,33 @@ export interface ReviewFormProps {
 type FormData = {
   title: string;
   review: string;
-  rating: number;
+  rating: string;
 };
 
-const schema = yup.object().shape({
-  title: yup.string().defined(),
-  review: yup.string().defined(),
-  rating: yup.number().defined().integer().min(1).max(5)
+const reviewSchema = yup.object().shape({
+  title: yup.string().required(),
+  review: yup.string().required().min(4),
+  rating: yup
+    .string()
+    .required()
+    .test(
+      "is-num-1-5",
+      "rating must be a number (1-5)",
+      val => parseInt(val) > 0 && parseInt(val) < 6
+    )
 });
 
 const defaultValues = {
   title: "",
   review: "",
-  rating: 1
+  rating: ""
 };
 
 const ReviewForm: React.SFC<ReviewFormProps> = ({ addReview }) => {
   const { register, setValue, handleSubmit, errors, reset, watch } = useForm<
     FormData
   >({
-    validationSchema: schema,
+    validationSchema: reviewSchema,
     mode: "onBlur",
     defaultValues
   });
@@ -56,7 +63,7 @@ const ReviewForm: React.SFC<ReviewFormProps> = ({ addReview }) => {
         value={values.title}
         style={globalStyles.input}
       />
-      {errors.title && <Text>This is required</Text>}
+      <Text style={globalStyles.error}>{errors.title?.message}</Text>
 
       <TextInput
         placeholder="Review"
@@ -64,16 +71,16 @@ const ReviewForm: React.SFC<ReviewFormProps> = ({ addReview }) => {
         value={values.review}
         style={globalStyles.input}
       />
-      {errors.title && <Text>This is required</Text>}
+      <Text style={globalStyles.error}>{errors.review?.message}</Text>
 
       <TextInput
         placeholder="Rating (1-5)"
-        onChangeText={text => setValue("rating", Number(text))}
+        onChangeText={text => setValue("rating", text)}
         value={values.rating.toString()}
         style={globalStyles.input}
         keyboardType="numeric"
       />
-      {errors.rating && <Text>This is required and has to be a number</Text>}
+      <Text style={globalStyles.error}>{errors.rating?.message}</Text>
 
       <Button color="orange" title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
