@@ -22,7 +22,7 @@ export const dummyData = [
   }
 ];
 
-export type dummyDataType = {
+export type reviewType = {
   key: string;
   title: string;
   review: string;

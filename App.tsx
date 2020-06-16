@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeStack from "./routes/HomeStack";
 import AboutStack from "./routes/AboutStack";
+import ReviewsContextProvider from "./contexts/ReviewsContext";
 
 const getFonts = () =>
   Font.loadAsync({
@@ -23,11 +24,13 @@ export default function App() {
     );
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeStack} />
-        <Drawer.Screen name="About" component={AboutStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <ReviewsContextProvider>
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={HomeStack} />
+          <Drawer.Screen name="About" component={AboutStack} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </ReviewsContextProvider>
   );
 }

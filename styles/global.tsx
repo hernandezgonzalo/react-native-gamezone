@@ -6,7 +6,7 @@ export const globalStyles = StyleSheet.create({
     padding: 20
   },
   titleText: {
-    fontFamily: "merriweather-bold",
+    // fontFamily: "merriweather-bold",
     fontSize: 18,
     color: "#333"
   },
@@ -35,6 +35,12 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 6,
     marginVertical: 5
+  },
+  error: {
+    color: "crimson",
+    textAlign: "center",
+    textTransform: "capitalize",
+    paddingVertical: 5
   }
 });
 

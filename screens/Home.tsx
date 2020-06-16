@@ -1,25 +1,24 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text } from "react-native";
 import { globalStyles } from "../styles/global";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
-import { dummyData, dummyDataType } from "../dummyData";
+import { reviewType } from "../dummyData";
 import ModalWindow from "../components/ModalWindow";
 import { MaterialIcons } from "@expo/vector-icons";
 import ReviewForm from "./ReviewForm";
+import { ReviewsContext } from "../contexts/ReviewsContext";
 
 type Props = StackScreenProps<HomeStackParamList, "Home">;
 
 const Home = ({ navigation }: Props) => {
-  const [reviews, setReviews] = useState(dummyData);
+  const { reviews, reviewsDispatch } = useContext(ReviewsContext);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const addReview = (newReview: dummyDataType) => {
-    newReview.key = Math.random().toString();
-    setReviews(state => [newReview, ...state]);
+  const addReview = (review: reviewType) => {
+    reviewsDispatch({ type: "ADD_REVIEW", review });
     setModalOpen(false);
   };
 
