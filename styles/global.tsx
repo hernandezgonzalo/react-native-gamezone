@@ -36,6 +36,9 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 5
   },
+  textInput: {
+    minHeight: 100
+  },
   error: {
     color: "crimson",
     textAlign: "center",

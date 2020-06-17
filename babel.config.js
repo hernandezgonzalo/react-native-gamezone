@@ -19,7 +19,7 @@ module.exports = function (api) {
             ".json"
           ],
           alias: {
-            "@comp": "./components"
+            "@FlatButton": "./components/buttons/FlatButton.tsx"
           }
         }
       ]
