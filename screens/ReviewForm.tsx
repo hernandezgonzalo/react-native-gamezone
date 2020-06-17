@@ -3,6 +3,7 @@ import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { useForm } from "react-hook-form";
 import { globalStyles } from "../styles/global";
 import * as yup from "yup";
+import FlatButton from "@FlatButton";
 
 export interface ReviewFormProps {
   addReview: any;
@@ -61,28 +62,38 @@ const ReviewForm: React.SFC<ReviewFormProps> = ({ addReview }) => {
         placeholder="Title"
         onChangeText={text => setValue("title", text, true)}
         value={values.title}
+        autoFocus
+        clearButtonMode="while-editing"
         style={globalStyles.input}
       />
-      <Text style={globalStyles.error}>{errors.title?.message}</Text>
+      {errors.title && (
+        <Text style={globalStyles.error}>{errors.title?.message}</Text>
+      )}
 
       <TextInput
         placeholder="Review"
         onChangeText={text => setValue("review", text)}
         value={values.review}
-        style={globalStyles.input}
+        multiline
+        style={{ ...globalStyles.input, ...globalStyles.textInput }}
       />
-      <Text style={globalStyles.error}>{errors.review?.message}</Text>
+      {errors.review && (
+        <Text style={globalStyles.error}>{errors.review?.message}</Text>
+      )}
 
       <TextInput
         placeholder="Rating (1-5)"
         onChangeText={text => setValue("rating", text)}
         value={values.rating.toString()}
-        style={globalStyles.input}
         keyboardType="numeric"
+        clearButtonMode="while-editing"
+        style={globalStyles.input}
       />
-      <Text style={globalStyles.error}>{errors.rating?.message}</Text>
+      {errors.rating && (
+        <Text style={globalStyles.error}>{errors.rating?.message}</Text>
+      )}
 
-      <Button color="orange" title="Submit" onPress={handleSubmit(onSubmit)} />
+      <FlatButton text="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };

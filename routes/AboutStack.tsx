@@ -16,7 +16,7 @@ const AboutStack = ({ navigation }: Props) => (
   <Stack.Navigator
     initialRouteName="About"
     screenOptions={{
-      headerStyle: { backgroundColor: "#f4511e" },
+      headerStyle: { backgroundColor: "#f01d71" },
       headerTintColor: "#fff",
       headerTitleStyle: { fontWeight: "bold" }
     }}
