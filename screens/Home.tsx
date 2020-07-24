@@ -1,6 +1,12 @@
 import React, { useState, useContext } from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
-// import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  ListRenderItemInfo
+} from "react-native";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { StackScreenProps } from "@react-navigation/stack";
 import { HomeStackParamList } from "../routes/HomeStack";
 import Card from "../components/Card";
@@ -11,36 +17,27 @@ import ReviewForm from "./ReviewForm";
 import { ReviewsContext } from "../contexts/ReviewsContext";
 import Carousel from "react-native-snap-carousel";
 import { globalStyles, images } from "../styles/global";
+import SwitchButton from "components/buttons/Switch";
 
 type Props = StackScreenProps<HomeStackParamList, "Home">;
-
-const styles = StyleSheet.create({
-  rating: {
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingTop: 16,
-    marginTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: "#eee"
-  }
-});
 
 const Home = ({ navigation }: Props) => {
   const { reviews, reviewsDispatch } = useContext(ReviewsContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
 
   const addReview = (review: reviewType) => {
     reviewsDispatch({ type: "ADD_REVIEW", review });
     setModalOpen(false);
   };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: ListRenderItemInfo<reviewType>) => {
     return (
       <View style={globalStyles.container}>
         <Card>
           <Text style={globalStyles.titleText}>{item.title}</Text>
           <Text>{item.review}</Text>
-          <View style={styles.rating}>
+          <View style={globalStyles.rating}>
             <Text>GameZone rating:</Text>
             <Image source={images.ratings[item.rating]} />
           </View>
@@ -62,26 +59,33 @@ const Home = ({ navigation }: Props) => {
         onPress={() => setModalOpen(true)}
       />
 
-      {/* <FlatList
-        data={reviews}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ReviewDetails", item)}
-          >
-            <Card>
-              <Text style={globalStyles.titleText}>{item.title}</Text>
-            </Card>
-          </TouchableOpacity>
-        )}
-      /> */}
+      <SwitchButton {...{ isSwitchEnabled, setIsSwitchEnabled }} />
 
-      <Carousel
-        layout={"default"}
-        data={reviews}
-        renderItem={renderItem}
-        sliderWidth={Dimensions.get("screen").width}
-        itemWidth={350}
-      />
+      {!isSwitchEnabled && (
+        <FlatList
+          style={globalStyles.flatList}
+          data={reviews}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ReviewDetails", item)}
+            >
+              <Card>
+                <Text style={globalStyles.titleText}>{item.title}</Text>
+              </Card>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+
+      {isSwitchEnabled && (
+        <Carousel
+          layout={"default"}
+          data={reviews}
+          renderItem={renderItem}
+          sliderWidth={Dimensions.get("screen").width}
+          itemWidth={350}
+        />
+      )}
     </View>
   );
 };

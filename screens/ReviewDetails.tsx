@@ -11,7 +11,7 @@ const ReviewDetails = ({ route, navigation }: Props) => {
   const rating = route.params.rating;
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.cards}>
       <Card>
         <Text>{route.params.title}</Text>
         <Text>{route.params.review}</Text>
@@ -27,6 +27,9 @@ const ReviewDetails = ({ route, navigation }: Props) => {
 export default ReviewDetails;
 
 const styles = StyleSheet.create({
+  cards: {
+    padding: 20
+  },
   rating: {
     flexDirection: "row",
     justifyContent: "center",
